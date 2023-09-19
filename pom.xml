@@ -1,22 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.Drifty</groupId>
     <artifactId>Drifty</artifactId>
     <version>2.0.0</version>
-    <name>Drifty</name>
+    <packaging>pom</packaging>
+    <modules>
+        <module>Core</module>
+        <module>CLI</module>
+        <module>GUI</module>
+    </modules>
 
     <properties>
+        <maven.compiler.source>20</maven.compiler.source>
+        <maven.compiler.target>20</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>5.10.0</junit.version>
-        <javafx.version>21</javafx.version>
         <gluonfx-maven-plugin.version>1.0.21</gluonfx-maven-plugin.version>
         <native-maven-plugin.version>0.9.27</native-maven-plugin.version>
-        <guiMain>GUI.Forms.Main</guiMain>
-        <cliMain>CLI.Main</cliMain>
+        <guiMain>GUI/Main.Drifty_GUI</guiMain>
+        <cliMain>CLI/Main.Drifty_CLI</cliMain>
         <package.type/>
         <mac.app.store/>
         <resource-config-file/>
@@ -26,60 +32,6 @@
         <maven-compiler-plugin>3.11.0</maven-compiler-plugin>
         <javafx-maven-plugin>0.0.8</javafx-maven-plugin>
     </properties>
-
-    <!--
-    To package:
-    mvn clean -Pbuild-drifty-gui-for-macos-latest gluonfx:build gluonfx:package
-    -->
-    <dependencies>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-controls</artifactId>
-            <version>${javafx.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.yaml</groupId>
-            <artifactId>snakeyaml</artifactId>
-            <version>2.2</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.13.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>2.10.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.hildan.fxgson</groupId>
-            <artifactId>fx-gson</artifactId>
-            <version>5.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-text</artifactId>
-            <version>1.10.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.buildobjects</groupId>
-            <artifactId>jproc</artifactId>
-            <version>2.8.2</version>
-        </dependency>
-    </dependencies>
 
     <build>
         <plugins>
@@ -125,7 +77,8 @@
                         <arg>--verbose</arg>
                         <arg>-H:ResourceConfigurationFiles=${pom.basedir}/config/${resource-config-file}</arg>
                         <arg>--add-exports=org.graalvm.nativeimage.builder/com.oracle.svm.core.jdk=ALL-UNNAMED</arg>
-<!--                        <arg>-o Drifty GUI</arg>-->
+                        <arg>--module-path=GUI/target/GUI-${project.version}.jar --module GUI</arg>
+                        <arg>--module-path=Core/target/Core-${project.version}.jar --module Core</arg>
                         <arg>${system-native-image-arg}</arg>
                     </nativeImageArgs>
                     <appIdentifier>${guiMain}</appIdentifier>
