@@ -42,7 +42,7 @@ public class DownloadMetrics {
         return 6;
     }
 
-    public long getMULTITHREADING_THRESHOLD() {
+    public long getMultiThreadingThreshold() {
         return 52428800; // 50 MB
     }
 }

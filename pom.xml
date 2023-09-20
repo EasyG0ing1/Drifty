@@ -160,6 +160,7 @@
                                 <buildArg>--no-fallback</buildArg>
                                 <buildArg>-H:+ReportExceptionStackTraces</buildArg>
                                 <buildArg>--verbose</buildArg>
+                                <buildArg>USE_NATIVE_IMAGE_JAVA_PLATFORM_MODULE_SYSTEM=true</buildArg>
                             </buildArgs>
                         </configuration>
                         <executions>

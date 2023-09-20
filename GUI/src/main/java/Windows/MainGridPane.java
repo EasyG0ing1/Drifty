@@ -27,8 +27,8 @@ public class MainGridPane extends GridPane {
     public final ImageView ivDir = newImageView(Constants.IMG_DIR_LABEL, .7);
     public final ImageView ivFilename = newImageView(Constants.IMG_FILENAME_LABEL, .7);
     public final ImageView ivAutoPaste = newImageView(Constants.IMG_AUTO_PASTE_LABEL, .7);
-    public final Button btnStart = newButton(Constants.IMG_START_UP, Constants.IMG_START_DOWN, .45);
-    public final Button btnSave = newButton(Constants.IMG_SAVE_UP, Constants.IMG_SAVE_DOWN, .45);
+    public final Button btnStart = newButton(Constants.IMG_START_UP, Constants.IMG_START_DOWN);
+    public final Button btnSave = newButton(Constants.IMG_SAVE_UP, Constants.IMG_SAVE_DOWN);
     public final CheckBox cbAutoPaste = new CheckBox();
     private final HBox boxAutoPaste = boxAutoPaste();
     private final HBox boxLogo = newHBox(ivLogo);
@@ -168,7 +168,8 @@ public class MainGridPane extends GridPane {
         return iv;
     }
 
-    private Button newButton(Image imageUp, Image imageDown, double scale) {
+    private Button newButton(Image imageUp, Image imageDown) {
+        double scale = .45;
         Button button = new Button();
         ImageView imageViewUp = new ImageView(imageUp);
         ImageView imageViewDn = new ImageView(imageDown);

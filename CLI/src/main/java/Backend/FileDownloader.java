@@ -35,7 +35,7 @@ public class FileDownloader implements Runnable {
         this.dir = dir;
         this.downloadMetrics = new DownloadMetrics();
         this.numberOfThreads = downloadMetrics.getThreadCount();
-        this.threadMaxDataSize = downloadMetrics.getMULTITHREADING_THRESHOLD();
+        this.threadMaxDataSize = downloadMetrics.getMultiThreadingThreshold();
         downloadMetrics.setMultithreaded(false);
     }
 
@@ -75,7 +75,6 @@ public class FileDownloader implements Runnable {
                         downloaderThreads.add(downloader);
                         tempFiles.add(file);
                     }
-
                     ProgressBarThread progressBarThread = new ProgressBarThread(fileOutputStreams, partSizes, fileName, getDir(), totalSize, downloadMetrics);
                     progressBarThread.start();
                     M.msgDownloadInfo(String.format(DOWNLOADING_F, fileName));
@@ -83,11 +82,7 @@ public class FileDownloader implements Runnable {
                     while (!mergeDownloadedFileParts(fileOutputStreams, partSizes, downloaderThreads, tempFiles)) {
                         sleep(500);
                     }
-                    downloadMetrics.setActive(false);
                     // keep the main thread from closing the IO for short amt. of time so UI thread can finish and output
-                    try {
-                        Thread.sleep(1500);
-                    } catch (InterruptedException ignored) {}
                 } else {
                     InputStream urlStream = url.openStream();
                     readableByteChannel = Channels.newChannel(urlStream);
@@ -96,12 +91,12 @@ public class FileDownloader implements Runnable {
                     progressBarThread.start();
                     M.msgDownloadInfo(String.format(DOWNLOADING_F, fileName));
                     fos.getChannel().transferFrom(readableByteChannel, 0, Long.MAX_VALUE);
-                    downloadMetrics.setActive(false);
                     // keep the main thread from closing the IO for a short amount of time so UI thread can finish and give output
-                    try {
-                        Thread.sleep(1500);
-                    } catch (InterruptedException ignored) {}
                 }
+                downloadMetrics.setActive(false);
+                try {
+                    Thread.sleep(1500);
+                } catch (InterruptedException ignored) {}
             } catch (SecurityException e) {
                 M.msgDownloadError("Write access to \"" + dir + fileName + "\" denied !");
             } catch (FileNotFoundException fileNotFoundException) {

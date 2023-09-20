@@ -741,8 +741,7 @@ public class GUI_Logic {
             if (getJobs().notNull()) {
                 if (getJobs().isEmpty()) {
                     form.listView.getItems().clear();
-                }
-                else {
+                } else {
                     // Remove duplicate jobs if any
                     Set<String> encounteredLinks = new HashSet<>();
                     ConcurrentLinkedDeque<Job> duplicates = getJobs().jobList().stream()
