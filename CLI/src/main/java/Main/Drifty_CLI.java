@@ -155,6 +155,8 @@ public class Drifty_CLI {
             downloadsFolder = Utility.getHomeDownloadFolder().toString();
         } else if (downloadsFolder.equalsIgnoreCase("L")) {
             downloadsFolder = AppSettings.get.lastDownloadFolder();
+        } else if (downloadsFolder.equals(".")) {
+            downloadsFolder = Utility.getHomeDownloadFolder().toString();
         } else {
             downloadsFolder = Paths.get(downloadsFolder).toAbsolutePath().toString();
             if (OS.isWindows()) {
