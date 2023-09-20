@@ -169,15 +169,14 @@ public class MainGridPane extends GridPane {
     }
 
     private Button newButton(Image imageUp, Image imageDown) {
-        double scale = .45;
         Button button = new Button();
         ImageView imageViewUp = new ImageView(imageUp);
         ImageView imageViewDn = new ImageView(imageDown);
         double width = imageUp.getWidth();
         imageViewUp.setPreserveRatio(true);
-        imageViewUp.setFitWidth(width * scale);
+        imageViewUp.setFitWidth(width * 0.45);
         imageViewDn.setPreserveRatio(true);
-        imageViewDn.setFitWidth(width * scale);
+        imageViewDn.setFitWidth(width * 0.45);
         button.setOnMousePressed(e->button.setGraphic(imageViewDn));
         button.setOnMouseReleased(e->button.setGraphic(imageViewUp));
         button.setGraphic(imageViewUp);

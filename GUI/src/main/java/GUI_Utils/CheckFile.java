@@ -76,8 +76,7 @@ public class CheckFile implements Runnable {
                     if (findOneFile) {
                         fileFound = true;
                         return FileVisitResult.TERMINATE;
-                    }
-                    else {
+                    } else {
                         if (!fileList.contains(fullPath)) {
                             fileList.addLast(fullPath);
                         }

@@ -297,7 +297,7 @@ public class GUI_Logic {
             Task<ConcurrentLinkedDeque<Job>> task = new GetFilename(link, getDir());
             Platform.runLater(() -> {
             /*
-            These bindings allow the Worker thread to post relevant information to the UI including the progress bar which
+            These bindings allow the Worker thread to post relevant information to the UI, including the progress bar which
             accurately depicts the remaining number of filenames to extract from the link. However, if there is only one filename
             to extract, the progress bar goes through a static animation to indicate that the program is not frozen.
             The controls that are bound to the thread cannot have their text updated while they are bound or else an error
@@ -340,10 +340,10 @@ public class GUI_Logic {
             form.lblDownloadInfo.setTextFill(GREEN);
             IntegerProperty speedValueProperty = new SimpleIntegerProperty();
             speedValueProperty.addListener(((observable, oldValue, newValue) -> {
-                if(!oldValue.equals(newValue)) {
+                if (!oldValue.equals(newValue)) {
                     speedValue += (int) newValue;
                     speedValueUpdateCount++;
-                    if(speedValueUpdateCount == 5) {
+                    if (speedValueUpdateCount == 5) {
                         int speed = speedValue / 5;
                         speedValueUpdateCount = 0;
                         speedValue = 0;
@@ -367,11 +367,11 @@ public class GUI_Logic {
                             form.pBar.progressProperty());
                     try (ExecutorService executor = Executors.newSingleThreadExecutor()) {
                         executor.submit(downloadFile);
-                        while(downloadFile.notDone()) {
+                        while (downloadFile.notDone()) {
                             sleep(500);
                         }
                         int exitCode = downloadFile.getExitCode();
-                        if(exitCode == 0) { //Success
+                        if (exitCode == 0) { //Success
                             removeJobFromList(job);
                             getHistory().addJob(job);
                         }
@@ -402,8 +402,9 @@ public class GUI_Logic {
 
     private boolean linkInJobList(String link) {
         for (Job job : getJobs().jobList()) {
-            if (job.getLink().equals(link))
+            if (job.getLink().equals(link)) {
                 return true;
+            }
         }
         return false;
     }
@@ -694,7 +695,7 @@ public class GUI_Logic {
     }
 
     public void setDownloadOutput(Color color, String message) {
-        if(processingBatch.getValue().equals(false)) {
+        if (processingBatch.getValue().equals(false)) {
             Platform.runLater(() -> {
                 form.lblDownloadInfo.getStyleClass().clear();
                 if (color.equals(GREEN) || color.equals(PURPLE) || color.equals(HOTPINK)) {

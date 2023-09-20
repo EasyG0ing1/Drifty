@@ -53,11 +53,11 @@ public class JobHistory {
         for (Job jobSource : jobHistoryList) {
             int dupeCount = 0;
             for (Job job : jobHistoryList) {
-                boolean dupeFound = jobSource.matchesLink(job);
-                if (dupeFound) {
+                boolean duplicateFound = jobSource.matchesLink(job);
+                if (duplicateFound) {
                     dupeCount++;
                 }
-                if (dupeFound && dupeCount > 1) {
+                if (duplicateFound && dupeCount > 1) {
                     removeList.addLast(job);
                 }
             }

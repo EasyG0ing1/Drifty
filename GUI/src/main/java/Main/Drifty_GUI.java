@@ -32,8 +32,8 @@ public class Drifty_GUI extends Application {
     public static void main(String[] args) {
         System.setProperty("apple.laf.useScreenMenuBar", "true");
         Mode.setGUIMode();
-        Environment.setMessageBroker(new MessageBroker());
-        M = Environment.getMessageBroker();
+        M = new MessageBroker();
+        Environment.setMessageBroker(M);
         M.msgLogInfo(Constants.GUI_APPLICATION_STARTED);
         Environment.initializeEnvironment();
         launch(args);
@@ -64,8 +64,9 @@ public class Drifty_GUI extends Application {
                 Clipboard clipboard = Clipboard.getSystemClipboard();
                 if (clipboard.hasString()) {
                     String clipboardText = clipboard.getString();
-                    if (Utility.isURL(clipboardText))
+                    if (Utility.isURL(clipboardText)) {
                         GUI_Logic.pasteFromClipboard(clipboardText);
+                    }
                 }
             }
         }));

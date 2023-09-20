@@ -75,8 +75,7 @@ public class ManageFolders {
                     // Make empty cells not selectable
                     setDisable(true);
                     setText("");
-                }
-                else {
+                } else {
                     // Set the text for non-empty cells
                     setDisable(false);
                     setText(item);
@@ -88,7 +87,7 @@ public class ManageFolders {
 
     private void setControls() {
         btnRemove.setOnAction(e -> remove());
-        btnClose.setOnAction(e -> close());
+        btnClose.setOnAction(e -> stage.close());
         BooleanBinding selected = lvFolders.getSelectionModel().selectedIndexProperty().greaterThan(-1);
         btnRemove.visibleProperty().bind(selected);
     }
@@ -102,10 +101,6 @@ public class ManageFolders {
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setAlwaysOnTop(true);
         stage.showAndWait();
-    }
-
-    private void close() {
-        stage.close();
     }
 
     private void remove() {
